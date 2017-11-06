@@ -1,0 +1,25 @@
+{
+  "name": "task2",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "update": "webdriver-manager update",
+    "e2e": "protractor protractor.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SiarheiRylach/nodeJS.module_5.git"
+  },
+  "author": "Siarhei Rylach",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SiarheiRylach/nodeJS.module_5/issues"
+  },
+  "homepage": "https://github.com/SiarheiRylach/nodeJS.module_5#readme",
+  "devDependencies": {
+    "protractor": "^5.2.0"
+  },
+  "dependencies": {
+    "shelljs": "^0.7.8"
+  }
+}
