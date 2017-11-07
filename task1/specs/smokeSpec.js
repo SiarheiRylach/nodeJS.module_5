@@ -2,8 +2,8 @@
 
 const world = require('../pages/world');
 
-const login = "test";
-const password = "test";
+const login = "+375293507246";
+const password = "7281hitman";
 
 describe('Test', ()=> {
 
@@ -21,8 +21,8 @@ describe('Test', ()=> {
 
       it("should login", (done)=>{
           browser.wait(EC.visibilityOf(world.guestPage.login, defTimeoutExplicit))
-              .then( ()=>world.guestPage.login.sendKeys(login) )
-              .then( ()=>world.guestPage.password.sendKeys(password) )
+              .then( ()=>world.guestPage.login.clear().sendKeys(login) )
+              .then( ()=>world.guestPage.password.clear().sendKeys(password) )
               .then( ()=>world.guestPage.signInBtn.click() )
               .then( ()=>done() );
       });
@@ -47,6 +47,8 @@ describe('Test', ()=> {
               .then( ()=> world.userPage.writeMessageBtn.click() )
               .then( ()=> browser.wait(EC.visibilityOf(world.userPage.txtAreaMsg, defTimeoutExplicit)) )
               .then( ()=> world.userPage.txtAreaMsg.sendKeys("Привет, как дела?") )
+              .then( ()=> utils.highlightSuccess(world.userPage.sendButton) )
+              .then( ()=> utils.createScreenshot() )
               .then( ()=> world.userPage.sendButton.click() )
               .then( ()=>done() );
       });
@@ -84,12 +86,15 @@ describe('Test', ()=> {
             let isLiked = false;
             let numberLikesBefore;
             browser.wait(EC.visibilityOf(world.userPage.likeProfilePhoto, defTimeoutExplicit))
+                .then( ()=> utils.highlightSuccess(world.userPage.numberLikes) )
+                .then( ()=> utils.createScreenshot() )
                 .then( ()=>world.userPage.numberLikes.getText() )
                 .then( (numberLikes)=> numberLikesBefore = +numberLikes)
                 .then( ()=> world.userPage.likeProfilePhoto.getAttribute("class"))
                 .then( (classes)=> isLiked = (classes.indexOf("pv_liked") > -1) )
                 .then( ()=> world.userPage.likeProfilePhoto.click() )
-                .then( ()=> browser.sleep(500) )
+                .then( ()=> utils.highlightSuccess(world.userPage.numberLikes) )
+                .then( ()=> utils.createScreenshot() )
                 .then( ()=> world.userPage.numberLikes.getText() )
                 .then( (numberLikes)=>{
                     if(isLiked){

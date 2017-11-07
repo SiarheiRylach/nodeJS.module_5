@@ -13,11 +13,13 @@ exports.config = {
         maxDuration: 10800
     },
     specs: [
-        './step_definitions/*[Ss]pec.js'
+        './specs/*[Ss]pec.js'
     ],
     onPrepare: function (){
+        global.utils = require('utils_for_tests');
         global.EC = protractor.ExpectedConditions;
         global.defTimeoutExplicit = 5 * 1000;
+
         browser.waitForAngularEnabled(false); //if your app is not angular
         browser.driver.manage().window().maximize(); //full screen mode
     },
