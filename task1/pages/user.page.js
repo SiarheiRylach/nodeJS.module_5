@@ -13,6 +13,11 @@ class UserPage extends MasterPage{
         //message menu
         this.txtAreaMsg = element(by.css("#mail_box_editable"));
         this.sendButton = element(by.css("#mail_box_send"));
+
+        //post button
+        this.inputPost = element(by.css("#post_field"));
+        this.postBtn = element(by.css("#send_post"));
+        this.postHeaders = element.all(by.css('.post_header'));
     };
 
 }

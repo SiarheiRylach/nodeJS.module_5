@@ -2,8 +2,8 @@
 
 const world = require('../pages/world');
 
-const login = "login";
-const password = "password";
+const login = "+375293507246";
+const password = "7281hitman";
 
 describe('Test', ()=> {
 
@@ -55,7 +55,7 @@ describe('Test', ()=> {
 
   });
 
-    describe("Like for profile photo:",()=> {
+  describe("Like for profile photo:",()=> {
 
         it("should open home page for user", (done)=>{
             world.userPage.open()
@@ -106,7 +106,33 @@ describe('Test', ()=> {
                 .then( ()=>done() );
         });
 
+  });
+
+    describe("Post:",()=>{
+        it("should open home page for user", (done)=>{
+            world.userPage.open()
+                .then( ()=> browser.getTitle() )
+                .then( title=>expect(title).toBe('Новости') )
+                .then( ()=>done() );
+        });
+
+        it("should be on my page", (done)=>{
+            browser.wait(EC.visibilityOf(world.userPage.leftBar.myProfile, defTimeoutExplicit))
+                .then(()=> world.userPage.leftBar.myProfile.click())
+                .then( ()=>done() );
+        });
+
+        it("number of records after publication", (done)=>{
+            let numberPostsBefore = 0;
+            browser.wait(EC.visibilityOf(world.userPage.inputPost, defTimeoutExplicit))
+                .then( ()=> world.userPage.postHeaders.count() )
+                .then( (number)=> numberPostsBefore = number )
+                .then( ()=> world.userPage.inputPost.clear().sendKeys('Test'))
+                .then( ()=> world.userPage.postBtn.click())
+                .then( ()=> world.userPage.postHeaders.count() )
+                .then( (number)=> expect(number).toBe(numberPostsBefore + 1) )
+                .then( ()=>done() );
+        });
     });
 
 });
-
