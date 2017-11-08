@@ -2,8 +2,8 @@
 
 const world = require('../pages/world');
 
-const login = "+375293507246";
-const password = "7281hitman";
+const login = "login";
+const password = "pass";
 
 describe('Test', ()=> {
 
