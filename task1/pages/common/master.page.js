@@ -7,7 +7,7 @@ class MasterPage {
         this.leftBar = new LeftBar();
     };
 
-    open(){
+    openPage(){
        return browser.get(this.url);
     }
 

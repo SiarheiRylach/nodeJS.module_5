@@ -3,7 +3,7 @@ const MasterPage = require('./common/master.page');
 class UserPage extends MasterPage{
     constructor() {
         super();
-        this.writeMessageBtn = element(by.linkText("Написать сообщение"));
+        this.writeMessageBtn = element(by.css(".profile_btn_cut_left"));
         this.profilePhoto = element(by.css('.page_avatar_img'));
 
         //profile_photo

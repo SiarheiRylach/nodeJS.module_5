@@ -6,7 +6,7 @@ class GuestPage {
         this.signInBtn = element(by.css('#index_login_button'));
     };
 
-    open(){
+    openPage(){
         return browser.get(this.url);
     }
 

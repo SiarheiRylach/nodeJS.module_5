@@ -7,132 +7,116 @@ const password = "pass";
 
 describe('Test', ()=> {
 
-  beforeEach(()=>{
-      jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
-  });
-
   describe("Log in:",()=>{
-      it("should open home page for guest", (done)=>{
-          world.guestPage.open()
-              .then( ()=> browser.getTitle() )
-              .then( title=>expect(title).toBe('Welcome! | VK') )
-              .then( ()=>done() );
+      it("should open home page for guest", ()=>{
+          world.guestPage.openPage();
+          expect(browser.getTitle()).toBe('Welcome! | VK');
       });
 
-      it("should login", (done)=>{
-          browser.wait(EC.visibilityOf(world.guestPage.login, defTimeoutExplicit))
-              .then( ()=>world.guestPage.login.clear().sendKeys(login) )
-              .then( ()=>world.guestPage.password.clear().sendKeys(password) )
-              .then( ()=>world.guestPage.signInBtn.click() )
-              .then( ()=>done() );
+      it("should login", ()=>{
+          browser.wait(EC.visibilityOf(world.guestPage.login, defTimeoutExplicit));
+          world.guestPage.login.clear().sendKeys(login);
+          world.guestPage.password.clear().sendKeys(password);
+          world.guestPage.signInBtn.click();
       });
   });
 
-  describe("Sending message:",()=> {
+  /*describe("Sending message:",()=> {
 
-      it("go to list of friends", (done) => {
-          browser.wait(EC.visibilityOf(world.feedPage.leftBar.friends, defTimeoutExplicit))
-              .then(() => world.feedPage.leftBar.friends.click())
-              .then(() => done());
+      it("go to list of friends", () => {
+          browser.wait(EC.visibilityOf(world.feedPage.leftBar.friends, defTimeoutExplicit));
+          world.feedPage.leftBar.friends.click();
       });
 
-      it("go to profile recipient", (done) => {
-          browser.wait(EC.visibilityOf(world.friendsPage.nameTestFriend, defTimeoutExplicit))
-              .then(() => world.friendsPage.nameTestFriend.click())
-              .then(() => done());
+      it("go to profile recipient", () => {
+          browser.wait(EC.visibilityOf(world.friendsPage.nameTestFriend, defTimeoutExplicit));
+          world.friendsPage.nameTestFriend.click();
       });
 
-      it("send message", (done)=>{
-          browser.wait(EC.visibilityOf(world.userPage.writeMessageBtn, defTimeoutExplicit))
-              .then( ()=> world.userPage.writeMessageBtn.click() )
-              .then( ()=> browser.wait(EC.visibilityOf(world.userPage.txtAreaMsg, defTimeoutExplicit)) )
-              .then( ()=> world.userPage.txtAreaMsg.sendKeys("Привет, как дела?") )
-              .then( ()=> utils.highlightSuccess(world.userPage.sendButton) )
-              .then( ()=> utils.createScreenshot() )
-              .then( ()=> world.userPage.sendButton.click() )
-              .then( ()=>done() );
+      it("send message", ()=>{
+          browser.wait(EC.visibilityOf(world.userPage.writeMessageBtn, defTimeoutExplicit));
+          world.userPage.writeMessageBtn.click();
+          browser.wait(EC.visibilityOf(world.userPage.txtAreaMsg, defTimeoutExplicit));
+          world.userPage.txtAreaMsg.sendKeys("Привет, как дела?");
+          utils.highlightSuccess(world.userPage.sendButton);
+          utils.createScreenshot();
+          world.userPage.sendButton.click();
       });
 
-  });
+  });*/
 
   describe("Like for profile photo:",()=> {
 
-        it("should open home page for user", (done)=>{
-            world.userPage.open()
-                .then( ()=> browser.getTitle() )
-                .then( title=>expect(title).toBe('Новости') )
-                .then( ()=>done() );
+        it("should open home page for user", ()=>{
+            world.userPage.openPage();
+            expect(browser.getTitle()).toBe('Новости');
         });
 
-        it("go to list of friends", (done)=>{
-            browser.wait(EC.visibilityOf(world.feedPage.leftBar.friends, defTimeoutExplicit))
-                .then(()=> world.feedPage.leftBar.friends.click())
-                .then( ()=>done() );
+        it("go to list of friends", ()=>{
+            browser.wait(EC.visibilityOf(world.feedPage.leftBar.friends, defTimeoutExplicit));
+            world.feedPage.leftBar.friends.click();
         });
 
-        it("go to profile recipient", (done)=>{
-            browser.wait(EC.visibilityOf(world.friendsPage.nameTestFriend, defTimeoutExplicit))
-                .then(()=> world.friendsPage.nameTestFriend.click())
-                .then( ()=>done() );
+        it("go to profile recipient", ()=>{
+            browser.wait(EC.visibilityOf(world.friendsPage.nameTestFriend, defTimeoutExplicit));
+            world.friendsPage.nameTestFriend.click();
         });
 
-        it("click profile photo", (done)=>{
-            browser.wait(EC.visibilityOf(world.userPage.profilePhoto, defTimeoutExplicit))
-                .then( ()=> world.userPage.profilePhoto.click() )
-                .then( ()=>done() );
+        it("click profile photo", ()=>{
+            browser.wait(EC.visibilityOf(world.userPage.profilePhoto, defTimeoutExplicit));
+            world.userPage.profilePhoto.click();
         });
 
-        it("number likes of profile photo after click", (done)=>{
-            let isLiked = false;
+        it("number likes of profile photo after click", ()=>{
+            browser.wait(EC.visibilityOf(world.userPage.likeProfilePhoto, defTimeoutExplicit));
+
+            //screenshot before click
+            utils.highlightSuccess(world.userPage.numberLikes);
+            utils.createScreenshot();
+
             let numberLikesBefore;
-            browser.wait(EC.visibilityOf(world.userPage.likeProfilePhoto, defTimeoutExplicit))
-                .then( ()=> utils.highlightSuccess(world.userPage.numberLikes) )
-                .then( ()=> utils.createScreenshot() )
-                .then( ()=>world.userPage.numberLikes.getText() )
-                .then( (numberLikes)=> numberLikesBefore = +numberLikes)
-                .then( ()=> world.userPage.likeProfilePhoto.getAttribute("class"))
-                .then( (classes)=> isLiked = (classes.indexOf("pv_liked") > -1) )
-                .then( ()=> world.userPage.likeProfilePhoto.click() )
-                .then( ()=> utils.highlightSuccess(world.userPage.numberLikes) )
-                .then( ()=> utils.createScreenshot() )
-                .then( ()=> world.userPage.numberLikes.getText() )
-                .then( (numberLikes)=>{
-                    if(isLiked){
-                        expect(+numberLikes).toBe(numberLikesBefore - 1);
-                    }else{
-                        expect(+numberLikes).toBe(numberLikesBefore + 1)
-                    }
-                })
-                .then( ()=>done() );
+            world.userPage.numberLikes.getText()
+                .then( (numberLikes)=> numberLikesBefore = +numberLikes);
+
+            //check liked or not before click
+            let isLiked = false;
+            world.userPage.likeProfilePhoto.getAttribute("class")
+                .then( (classes)=> isLiked = (classes.indexOf("pv_liked") > -1) );
+
+            //screenshot after click
+            world.userPage.likeProfilePhoto.click();
+            utils.highlightSuccess(world.userPage.numberLikes);
+            utils.createScreenshot();
+
+            if(isLiked){
+                expect(+world.userPage.numberLikes.getText()).toBe(numberLikesBefore - 1);
+            }else{
+                expect(+world.userPage.numberLikes.getText()).toBe(numberLikesBefore + 1)
+            }
+
         });
 
   });
 
-    describe("Post:",()=>{
-        it("should open home page for user", (done)=>{
-            world.userPage.open()
-                .then( ()=> browser.getTitle() )
-                .then( title=>expect(title).toBe('Новости') )
-                .then( ()=>done() );
+    /*describe("Post:",()=>{
+        it("should open home page for user", ()=>{
+            world.userPage.openPage();
+            expect(browser.getTitle()).toBe('Новости');
         });
 
-        it("should be on my page", (done)=>{
-            browser.wait(EC.visibilityOf(world.userPage.leftBar.myProfile, defTimeoutExplicit))
-                .then(()=> world.userPage.leftBar.myProfile.click())
-                .then( ()=>done() );
+        it("should be on page of my profile", ()=>{
+            browser.wait(EC.visibilityOf(world.userPage.leftBar.myProfile, defTimeoutExplicit));
+            world.userPage.leftBar.myProfile.click();
         });
 
-        it("number of records after publication", (done)=>{
-            let numberPostsBefore = 0;
-            browser.wait(EC.visibilityOf(world.userPage.inputPost, defTimeoutExplicit))
-                .then( ()=> world.userPage.postHeaders.count() )
-                .then( (number)=> numberPostsBefore = number )
-                .then( ()=> world.userPage.inputPost.clear().sendKeys('Test'))
-                .then( ()=> world.userPage.postBtn.click())
-                .then( ()=> world.userPage.postHeaders.count() )
-                .then( (number)=> expect(number).toBe(numberPostsBefore + 1) )
-                .then( ()=>done() );
+        it("number of records after publication", ()=>{
+            browser.wait(EC.visibilityOf(world.userPage.inputPost, defTimeoutExplicit));
+            let numberPostsBefore = world.userPage.postHeaders.length;
+            world.userPage.inputPost.clear().sendKeys('Test');
+            world.userPage.postBtn.click();
+            browser.sleep(500);
+            expect(world.userPage.postHeaders.count()).toBe(numberPostsBefore + 1);
         });
-    });
+    });*/
 
 });
