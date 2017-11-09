@@ -11,7 +11,7 @@ class UserPage extends MasterPage{
         this.numberLikes = element(by.css(".pv_like_count"));
 
         //message menu
-        this.txtAreaMsg = element(by.css("#mail_box_editable"));
+        this.inputMessage= element(by.css("#mail_box_editable"));
         this.sendButton = element(by.css("#mail_box_send"));
 
         //post button

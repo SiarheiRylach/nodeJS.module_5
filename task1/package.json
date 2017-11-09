@@ -18,6 +18,7 @@
   "homepage": "https://github.com/SiarheiRylach/nodeJS.module_5#readme",
   "devDependencies": {
     "protractor": "^5.2.0",
-    "utils-test": "https://github.com/SiarheiRylach/utils_for_tests.git"
+    "utils_for_tests": "https://github.com/SiarheiRylach/utils_for_tests.git",
+    "helpers_protractor": "https://github.com/SiarheiRylach/helpers_protractor.git"
   }
 }

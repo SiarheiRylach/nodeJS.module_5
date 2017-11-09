@@ -15,9 +15,8 @@ describe('Test', ()=> {
 
       it("should login", ()=>{
           browser.wait(EC.visibilityOf(world.guestPage.login, defTimeoutExplicit));
-          world.guestPage.login.clear().sendKeys(login);
-          world.guestPage.password.clear().sendKeys(password);
-          world.guestPage.signInBtn.click();
+          elementHelper.login(login, password, world.guestPage.login,
+                              world.guestPage.password, world.guestPage.signInBtn);
       });
   });
 
@@ -36,8 +35,8 @@ describe('Test', ()=> {
       it("send message", ()=>{
           browser.wait(EC.visibilityOf(world.userPage.writeMessageBtn, defTimeoutExplicit));
           world.userPage.writeMessageBtn.click();
-          browser.wait(EC.visibilityOf(world.userPage.txtAreaMsg, defTimeoutExplicit));
-          world.userPage.txtAreaMsg.sendKeys("Привет, как дела?");
+          browser.wait(EC.visibilityOf(world.userPage.inputMessage, defTimeoutExplicit));
+          elementHelper.setElementValue("Привет, как дела?", world.userPage.inputMessage);
           utils.highlightSuccess(world.userPage.sendButton);
           utils.createScreenshot();
           world.userPage.sendButton.click();
@@ -71,8 +70,7 @@ describe('Test', ()=> {
             browser.wait(EC.visibilityOf(world.userPage.likeProfilePhoto, defTimeoutExplicit));
 
             //screenshot before click
-            utils.highlightSuccess(world.userPage.numberLikes);
-            utils.createScreenshot();
+            utils.highlightPlusScreen(world.userPage.numberLikes, true);
 
             let numberLikesBefore = 0;
             let isLiked = false;
@@ -88,8 +86,7 @@ describe('Test', ()=> {
                 //screenshot after click
                 .then( ()=>{
                     world.userPage.likeProfilePhoto.click();
-                    utils.highlightSuccess(world.userPage.numberLikes);
-                    utils.createScreenshot();
+                    utils.highlightPlusScreen(world.userPage.numberLikes, true);
                 })
                 .then( ()=> world.userPage.numberLikes.getText() )
                 .then( (numberLikes)=>{
@@ -118,11 +115,11 @@ describe('Test', ()=> {
         it("number of records after publication", ()=>{
             browser.wait(EC.titleIs('Афанасий Игнатов'), defTimeoutExplicit);
 
-            let numberPostsBefore;
+            let numberPostsBefore = 0;
             world.userPage.postHeaders.count()
                 .then( (number)=>{
                     numberPostsBefore = number;
-                    world.userPage.inputPost.clear().sendKeys('Test');
+                    elementHelper.setElementValue("Test", world.userPage.inputPost);
                     world.userPage.postBtn.click();
                     browser.sleep(500);
                     return world.userPage.postHeaders.count()

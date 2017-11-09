@@ -18,6 +18,7 @@ exports.config = {
     onPrepare: function (){
         global.utils = require('utils_for_tests');
         global.EC = protractor.ExpectedConditions;
+        global.elementHelper = require("helpers_protractor").elementHelper;
         global.defTimeoutExplicit = 5 * 1000;
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 
