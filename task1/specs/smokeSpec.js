@@ -93,7 +93,7 @@ describe('Test', ()=> {
                     if(isLiked){
                         expect(+numberLikes).toBe(numberLikesBefore - 1);
                     }else{
-                        expect(+numberLikes).toBe(numberLikesBefore + 1)
+                        expect(+numberLikes).toBe(numberLikesBefore + 1);
                     }
                 })
 
