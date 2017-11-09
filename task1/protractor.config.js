@@ -18,10 +18,11 @@ exports.config = {
     onPrepare: function (){
         global.utils = require('utils_for_tests');
         global.EC = protractor.ExpectedConditions;
+        global.elementHelper = require("helpers_protractor").elementHelper;
         global.defTimeoutExplicit = 5 * 1000;
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 
         browser.waitForAngularEnabled(false); //if your app is not angular
-        browser.driver.manage().window().maximize(); //full screen mode
     },
     allScriptsTimeout: 200000,
     getPageTimeout: 100000

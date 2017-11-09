@@ -3,7 +3,7 @@ const MasterPage = require('./common/master.page');
 class UserPage extends MasterPage{
     constructor() {
         super();
-        this.writeMessageBtn = element(by.linkText("Написать сообщение"));
+        this.writeMessageBtn = element(by.css(".profile_btn_cut_left"));
         this.profilePhoto = element(by.css('.page_avatar_img'));
 
         //profile_photo
@@ -11,7 +11,7 @@ class UserPage extends MasterPage{
         this.numberLikes = element(by.css(".pv_like_count"));
 
         //message menu
-        this.txtAreaMsg = element(by.css("#mail_box_editable"));
+        this.inputMessage= element(by.css("#mail_box_editable"));
         this.sendButton = element(by.css("#mail_box_send"));
 
         //post button
