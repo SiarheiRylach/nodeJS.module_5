@@ -1,6 +1,5 @@
 # nodeJS.module_5
 ***task1*** </br>
-
     Test scenario of sending message for vk.com</br>
 
 ***Prerequisites***:</br>
@@ -10,9 +9,7 @@
   4. Use cmd command "npm run update" from folder "task1".</br>
   
 ***Getting Started***</br>
-
     Use cmd command "npn run e2e" from folder "task1" .</br> 
 
 ***Authors***</br>
-
     *Siarhei Rylach*</br>
