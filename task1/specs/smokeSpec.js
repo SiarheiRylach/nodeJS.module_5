@@ -2,8 +2,8 @@
 
 const world = require('../pages/world');
 
-const login = "login";
-const password = "pass";
+const login = "+375293507246";
+const password = "7281hitman";
 
 describe('Test', ()=> {
 
@@ -21,7 +21,7 @@ describe('Test', ()=> {
       });
   });
 
-  /*describe("Sending message:",()=> {
+  describe("Sending message:",()=> {
 
       it("go to list of friends", () => {
           browser.wait(EC.visibilityOf(world.feedPage.leftBar.friends, defTimeoutExplicit));
@@ -43,7 +43,7 @@ describe('Test', ()=> {
           world.userPage.sendButton.click();
       });
 
-  });*/
+  });
 
   describe("Like for profile photo:",()=> {
 
@@ -74,31 +74,37 @@ describe('Test', ()=> {
             utils.highlightSuccess(world.userPage.numberLikes);
             utils.createScreenshot();
 
-            let numberLikesBefore;
-            world.userPage.numberLikes.getText()
-                .then( (numberLikes)=> numberLikesBefore = +numberLikes);
-
-            //check liked or not before click
+            let numberLikesBefore = 0;
             let isLiked = false;
-            world.userPage.likeProfilePhoto.getAttribute("class")
-                .then( (classes)=> isLiked = (classes.indexOf("pv_liked") > -1) );
 
-            //screenshot after click
-            world.userPage.likeProfilePhoto.click();
-            utils.highlightSuccess(world.userPage.numberLikes);
-            utils.createScreenshot();
+            //numbers of likes before
+            world.userPage.numberLikes.getText()
+                .then( numberLikes => numberLikesBefore = +numberLikes )
 
-            if(isLiked){
-                expect(+world.userPage.numberLikes.getText()).toBe(numberLikesBefore - 1);
-            }else{
-                expect(+world.userPage.numberLikes.getText()).toBe(numberLikesBefore + 1)
-            }
+                //check liked or not before click
+                .then( ()=>  world.userPage.likeProfilePhoto.getAttribute("class") )
+                .then( classes => isLiked = (classes.indexOf("pv_liked") > -1) )
+
+                //screenshot after click
+                .then( ()=>{
+                    world.userPage.likeProfilePhoto.click();
+                    utils.highlightSuccess(world.userPage.numberLikes);
+                    utils.createScreenshot();
+                })
+                .then( ()=> world.userPage.numberLikes.getText() )
+                .then( (numberLikes)=>{
+                    if(isLiked){
+                        expect(+numberLikes).toBe(numberLikesBefore - 1);
+                    }else{
+                        expect(+numberLikes).toBe(numberLikesBefore + 1)
+                    }
+                })
 
         });
 
   });
 
-    /*describe("Post:",()=>{
+    describe("Post:",()=>{
         it("should open home page for user", ()=>{
             world.userPage.openPage();
             expect(browser.getTitle()).toBe('Новости');
@@ -110,13 +116,19 @@ describe('Test', ()=> {
         });
 
         it("number of records after publication", ()=>{
-            browser.wait(EC.visibilityOf(world.userPage.inputPost, defTimeoutExplicit));
-            let numberPostsBefore = world.userPage.postHeaders.length;
-            world.userPage.inputPost.clear().sendKeys('Test');
-            world.userPage.postBtn.click();
-            browser.sleep(500);
-            expect(world.userPage.postHeaders.count()).toBe(numberPostsBefore + 1);
+            browser.wait(EC.titleIs('Афанасий Игнатов'), defTimeoutExplicit);
+
+            let numberPostsBefore;
+            world.userPage.postHeaders.count()
+                .then( (number)=>{
+                    numberPostsBefore = number;
+                    world.userPage.inputPost.clear().sendKeys('Test');
+                    world.userPage.postBtn.click();
+                    browser.sleep(500);
+                    return world.userPage.postHeaders.count()
+                })
+                .then( (number)=> expect(number).toBe(numberPostsBefore + 1) )
         });
-    });*/
+    });
 
 });
