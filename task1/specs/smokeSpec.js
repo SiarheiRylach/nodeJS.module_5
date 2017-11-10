@@ -23,22 +23,17 @@ describe('Test', ()=> {
   describe("Sending message:",()=> {
 
       it("go to list of friends", () => {
-          browser.wait(EC.visibilityOf(world.feedPage.leftBar.friends, defTimeoutExplicit));
-          world.feedPage.leftBar.friends.click();
+          elementHelper.clickWithWait(world.feedPage.leftBar.friends, defTimeoutExplicit)
       });
 
       it("go to profile recipient", () => {
-          browser.wait(EC.visibilityOf(world.friendsPage.nameTestFriend, defTimeoutExplicit));
-          world.friendsPage.nameTestFriend.click();
+          elementHelper.clickWithWait(world.friendsPage.nameTestFriend, defTimeoutExplicit);
       });
 
       it("send message", ()=>{
-          browser.wait(EC.visibilityOf(world.userPage.writeMessageBtn, defTimeoutExplicit));
-          world.userPage.writeMessageBtn.click();
-          browser.wait(EC.visibilityOf(world.userPage.inputMessage, defTimeoutExplicit));
-          elementHelper.setElementValue("Привет, как дела?", world.userPage.inputMessage);
-          utils.highlightSuccess(world.userPage.sendButton);
-          utils.createScreenshot();
+          elementHelper.clickWithWait(world.userPage.writeMessageBtn, defTimeoutExplicit);
+          elementHelper.setElementValueWithWait("Привет, как дела?", world.userPage.inputMessage, defTimeoutExplicit);
+          utils.highlightPlusScreen(world.userPage.sendButton, true);
           world.userPage.sendButton.click();
       });
 
@@ -52,8 +47,7 @@ describe('Test', ()=> {
         });
 
         it("go to list of friends", ()=>{
-            browser.wait(EC.visibilityOf(world.feedPage.leftBar.friends, defTimeoutExplicit));
-            world.feedPage.leftBar.friends.click();
+            elementHelper.clickWithWait(world.feedPage.leftBar.friends, defTimeoutExplicit);
         });
 
         it("go to profile recipient", ()=>{
@@ -62,8 +56,7 @@ describe('Test', ()=> {
         });
 
         it("click profile photo", ()=>{
-            browser.wait(EC.visibilityOf(world.userPage.profilePhoto, defTimeoutExplicit));
-            world.userPage.profilePhoto.click();
+            elementHelper.clickWithWait(world.userPage.profilePhoto, defTimeoutExplicit);
         });
 
         it("number likes of profile photo after click", ()=>{
@@ -108,8 +101,7 @@ describe('Test', ()=> {
         });
 
         it("should be on page of my profile", ()=>{
-            browser.wait(EC.visibilityOf(world.userPage.leftBar.myProfile, defTimeoutExplicit));
-            world.userPage.leftBar.myProfile.click();
+            elementHelper.clickWithWait(world.userPage.leftBar.myProfile, defTimeoutExplicit);
         });
 
         it("number of records after publication", ()=>{
