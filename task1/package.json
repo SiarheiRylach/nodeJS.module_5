@@ -19,6 +19,7 @@
   "devDependencies": {
     "protractor": "^5.2.0",
     "utils_for_tests": "https://github.com/SiarheiRylach/utils_for_tests.git",
-    "helpers_protractor": "https://github.com/SiarheiRylach/helpers_protractor.git"
+    "helpers_protractor": "https://github.com/SiarheiRylach/helpers_protractor.git",
+    "sweet_reporter": "https://github.com/SiarheiRylach/sweet_reporter.git"
   }
 }
