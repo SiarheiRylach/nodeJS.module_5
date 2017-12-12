@@ -9,7 +9,7 @@
   4. Use cmd command "npm run update" from folder "task1".</br>
   
 ***Getting Started***</br>
-    Use cmd command "npn run e2e" from folder "task1" .</br> 
+    Use cmd command "npm run e2e" from folder "task1" .</br> 
 
 ***Authors***</br>
     *Siarhei Rylach*</br>
